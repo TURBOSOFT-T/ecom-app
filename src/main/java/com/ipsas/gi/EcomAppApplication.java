@@ -5,13 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.apache.http.util.Args;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -67,11 +70,17 @@ class Product {
 	class ProductController{
 		@Autowired
 		private ProductRepository productRepository;
-		
+		@GetMapping("/index")
+		public String index(Model model){
+			model.addAttribute("products", productRepository.findAll());
+			return "index";
+		}
 		
 	}
 		
 @SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
 public class EcomAppApplication {
 
 	public static void main(String[] args) {
@@ -82,7 +91,7 @@ public class EcomAppApplication {
 	CommandLineRunner start(ProductRepository productRepository) {
 		
 		return Args ->{
-			productRepository.save(new Product((Integer) null,"HtP",44));
+			productRepository.save(new Product( (Integer) null,"HtP",44));
 			productRepository.save(new Product((Integer) null,"HP",448));
 			productRepository.save(new Product((Integer) null,"HPYYY",445));
 			productRepository.save(new Product((Integer) null,"HPDDD",44));

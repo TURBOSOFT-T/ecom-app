@@ -6,11 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.apache.http.util.Args;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -59,7 +61,15 @@ class Product {
 		
 	interface ProductRepository extends JpaRepository<Product, Long>{
 		
-	}	
+	}
+	
+	@RestController
+	class ProductController{
+		@Autowired
+		private ProductRepository productRepository;
+		
+		
+	}
 		
 @SpringBootApplication
 public class EcomAppApplication {
@@ -76,6 +86,10 @@ public class EcomAppApplication {
 			productRepository.save(new Product((Integer) null,"HP",448));
 			productRepository.save(new Product((Integer) null,"HPYYY",445));
 			productRepository.save(new Product((Integer) null,"HPDDD",44));
+			productRepository.findAll().forEach(p->{
+				
+				System.out.println(p.getName());
+			});
 		};
 	}
 

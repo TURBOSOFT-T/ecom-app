@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <title>My Products App</title>
+</head>
+<body>
+<h1>KeyCloak Test</h1>
+
+
+
+
+<table>
+<tr>
+<th>ID</th><th>Name</th><th>Price</th>
+
+</tr>
+<tr th:each="p${products}">
+<td th:text="${p.id}"></td>
+<td th:text="${p.name}"></td>
+<td th:text="${p.prix}"></td>
+
+</tr>
+
+</table>
+<footer>
+
+    
+</footer>
+
+
+</body>
+</html>

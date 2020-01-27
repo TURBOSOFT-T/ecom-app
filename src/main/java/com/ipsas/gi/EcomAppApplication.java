@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +14,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import antlr.collections.List;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.core.util.Loader;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -78,7 +83,7 @@ class Product {
 		
 	}
 		
-@SpringBootApplication
+
 @Configuration
 @EnableAutoConfiguration
 public class EcomAppApplication {
@@ -88,18 +93,21 @@ public class EcomAppApplication {
 	}
 	
 	@Bean
-	CommandLineRunner start(ProductRepository productRepository) {
+	 public CommandLineRunner start(ProductRepository productRepository) {
 		
-		return Args ->{
-			productRepository.save(new Product( (Integer) null,"HtP",44));
-			productRepository.save(new Product((Integer) null,"HP",448));
-			productRepository.save(new Product((Integer) null,"HPYYY",445));
-			productRepository.save(new Product((Integer) null,"HPDDD",44));
-			productRepository.findAll().forEach(p->{
-				
-				System.out.println(p.getName());
-			});
-		};
+		return args ->{
+		  
+			  productRepository.save(new Product( (Integer)null,"HtP",44));
+			  productRepository.save(new Product((Integer) null,"HP",448));
+			  productRepository.save(new Product((Integer)null,"HPYYY",445)); 
+			  productRepository.save(new Product((Integer)null,"HPDDD",44));
+			  productRepository.findAll().forEach(p->{
+		
+		 System.out.println(p.getName()); });
+			 };
+	
+	}
+		
 	}
 
-}
+
